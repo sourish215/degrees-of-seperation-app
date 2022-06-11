@@ -1,0 +1,3 @@
+Add name and friend's name using the form on the left.
+Search for seperation using the form on the right.
+Captures of the app have been added.
