@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { TextField, Grid, Button, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-import ShowList from './ShowList';
+import FindRelations from './FindRelations';
+import ShowRelations from './ShowRelations';
 
 const Alert = React.forwardRef(function Alert(
   props,
@@ -26,7 +27,6 @@ function FriendList() {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
@@ -116,17 +116,18 @@ function FriendList() {
 
   return (
     <Grid container spacing={4} direction='column'>
+      <Grid item container xs>
       <Grid item xs>
         <form name='form1' onSubmit={handleSubmitOne}>
           <Grid container spacing={2} direction='column'>
             <Grid item xs className="form-example">
-              <TextField size='small' value={name} type="text" label="Name" name="name" id="name" required onChange={e => setName(e.target.value.trim())}/>
+              <TextField size='small' value={name} type="text" label="Name" name="name" id="name" required onChange={e => setName(e.target.value)}/>
             </Grid>
             <Grid item xs className="form-example">
-              <TextField size='small' value={friendName} type="text" label="Friend's name" name="friend-name" id="friend-name" required onChange={e => setFriendName(e.target.value.trim())}/>
+              <TextField size='small' value={friendName} type="text" label="Friend's name" name="friend-name" id="friend-name" required onChange={e => setFriendName(e.target.value)}/>
             </Grid>
             <Grid item xs className="form-example">
-              <Button color='primary' type="submit" variant='contained' size='medium'>Add friend</Button>
+                <Button color='primary' type="submit" variant='contained' size='medium'>Add Relation</Button>
             </Grid>
           </Grid>
         </form>
@@ -136,10 +137,10 @@ function FriendList() {
         <form name='form2' onSubmit={handleSubmitTwo}>
           <Grid container spacing={2} direction='column'>
             <Grid item xs className="form-example">
-              <TextField size='small' value={nameOne} type="text" label="Name 1" name="name-one" id="name-one" required onChange={e => setNameOne(e.target.value.trim())}/>
+              <TextField size='small' value={nameOne} type="text" label="Name 1" name="name-one" id="name-one" required onChange={e => setNameOne(e.target.value)}/>
             </Grid>
             <Grid item xs className="form-example">
-              <TextField size='small' value={nameTwo} type="text" label="Name 2" name="name-two" id="name-two" required onChange={e => setNameTwo(e.target.value.trim())}/>
+              <TextField size='small' value={nameTwo} type="text" label="Name 2" name="name-two" id="name-two" required onChange={e => setNameTwo(e.target.value)}/>
             </Grid>
             <Grid item xs className="form-example">
               <Button color='primary' type="submit" variant='contained' size='medium'>Search Relation</Button>
@@ -147,12 +148,17 @@ function FriendList() {
           </Grid>
         </form>
       </Grid>
+      </Grid>
 
       <Grid item xs>
-        <ShowList relations={simpleRelations}/>
+        <ShowRelations peopleList={peopleList} name={name} friendName={friendName} />
       </Grid>
       
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      <Grid item xs>
+        <FindRelations relations={simpleRelations}/>
+      </Grid>
+      
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
